@@ -45,7 +45,6 @@ class LoadedGaussianPolicy(BasePolicy, nn.Module):
             'Policy type {} not supported'.format(policy_type)
         )
         self.policy_params = data[policy_type]
-
         assert set(self.policy_params.keys()) == {
             'logstdevs_1_Da', 'hidden', 'obsnorm', 'out'
         }

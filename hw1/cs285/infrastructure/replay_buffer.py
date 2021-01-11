@@ -31,6 +31,7 @@ class ReplayBuffer(object):
 
         # convert new rollouts into their component arrays, and append them onto
         # our arrays
+
         observations, actions, rewards, next_observations, terminals = (
             convert_listofrollouts(paths, concat_rew))
 
@@ -76,8 +77,14 @@ class ReplayBuffer(object):
         ## HINT 1: use np.random.permutation to sample random indices
         ## HINT 2: return corresponding data points from each array (i.e., not different indices from each array)
         ## HINT 3: look at the sample_recent_data function below
-
-        return TODO, TODO, TODO, TODO, TODO
+        idx = np.random.permutation(self.obs.shape[0])
+        return (
+            self.obs[idx][:batch_size],
+            self.acs[idx][:batch_size],
+            self.rews[idx][:batch_size],
+            self.next_obs[idx][:batch_size],
+            self.terminals[idx][:batch_size],
+        )
 
     def sample_recent_data(self, batch_size=1):
         return (

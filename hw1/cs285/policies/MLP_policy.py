@@ -96,7 +96,7 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
     def forward(self, observation: torch.FloatTensor) -> Any:
         # raise NotImplementedError
         mean = self.mean_net(observation)
-        dist = distributions.Normal(mean, self.logstd)
+        dist = distributions.Normal(mean, self.logstd.exp())
         return dist.rsample()
 
 #####################################################
@@ -117,7 +117,6 @@ class MLPPolicySL(MLPPolicy):
 
         self.optimizer.zero_grad()
         predicted_action = self(ptu.from_numpy(observations))
-
 
         # predicted_action.requires_grad = True
 
